@@ -1,6 +1,6 @@
 <?php
 class CharacterType
 {
-    public static $HERO = 'hero';
-    public static $BEAST = 'beast';
+    public static $HERO = 'Hero';
+    public static $BEAST = 'Beast';
 }

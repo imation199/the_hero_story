@@ -77,24 +77,15 @@ class Character
     }
 
     public function luck_in_game(){
-        switch($this->type_character) {
-            case CharacterType::$HERO:
-                return (round(mt_rand(1, (1 / $this->getLuck()) * 100)) == 1);
-            break;
-            case CharacterType::$BEAST:
-                return (round(mt_rand(1, (1 / $this->getLuck()) * 100)) == 1);
-            break;
-        }
+        return (round(mt_rand(1, (1 / $this->getLuck()) * 100)) == 1);
     }
 
     public function hero_get_skill($special_skill){
         switch($special_skill){
             case HeroSkills::$RAPID_STRIKE:
                 return (round(mt_rand(1, (1 / self::$rapid_strike_chance) * 100)) == 1);
-            break;
             case HeroSkills::$SHIELD:
                 return (round(mt_rand(1, (1 / self::$magic_shield_chance) * 100)) == 1);
-            break;
         }
     }
 
@@ -122,31 +113,15 @@ class Character
     }
 
     public function strike($defender){
-        switch($this->type_character){
-            case CharacterType::$HERO:
-                echo('----Hero start attack---- <br />');
-                $damage = $this->deal_damage($this->getStrenght(),$defender);
-                echo ('Damage Deal:'. $damage ."<br />" );
-                $defender->setHealth($defender->getHealth() - $damage);
-                break;
-            case CharacterType::$BEAST:
-                echo('----Beast start attack---- <br />');
-                $damage = $this->deal_damage($this->getStrenght(),$defender);
-                echo ('Damage Deal:'. $damage ."<br />" );
-                $defender->setHealth($defender->getHealth() - $damage);
-                break;
-        }
+        echo('----'.$this->type_character.' start attack---- <br />');
+        $damage = $this->deal_damage($this->getStrenght(),$defender);
+        echo ('Damage Deal:'. $damage ."<br />" );
+        $defender->setHealth($defender->getHealth() - $damage);
+              
     }
 
     public function print_stats(){
-        switch($this->type_character){
-            case CharacterType::$HERO:
-                echo('----Hero stats---- <br />');
-                break;
-            case CharacterType::$BEAST:
-                echo('----Beast stats---- <br />');
-                break;
-        }
+        echo('----'.$this->type_character.' stats---- <br />');
         echo("Health: ".$this->getHealth() . '<br />');
         echo("Strenght: ".$this->getStrenght(). '<br />');
         echo("Defance: ".$this->getDefence(). '<br />');

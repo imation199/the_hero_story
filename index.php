@@ -28,6 +28,7 @@ function start_game($numbers_of_game){
             $hero->print_stats();
             $wild_beast->print_stats();
         }else{
+            echo('----Hero start attack----');
             echo ('Wild_beast is lucky no dmg <br />');
         }
 
@@ -39,6 +40,7 @@ function start_game($numbers_of_game){
             $hero->print_stats();
             $wild_beast->print_stats();
         }else{
+            echo('----Wild_beast start attack----');
             echo('Hero is lucky no dmg <br />');
         }
 
@@ -51,6 +53,7 @@ function start_game($numbers_of_game){
                 $hero->print_stats();
                 $wild_beast->print_stats();
             }else{
+                echo('----Hero start attack---- <br />');
                 echo ('Wild_beast is lucky no dmg <br />');
             }
 
@@ -62,6 +65,7 @@ function start_game($numbers_of_game){
                 $hero->print_stats();
                 $wild_beast->print_stats();
             }else{
+                echo('----Wild_beast start attack---- <br />');
                 echo('Hero is lucky no dmg <br />');
             }
 
@@ -91,6 +95,7 @@ function start_game($numbers_of_game){
                 }
 
             }else{
+                echo('----Hero start attack---- <br />');
                 echo ('Wild_beast is lucky no dmg <br />');
             }
 
@@ -109,9 +114,10 @@ function start_game($numbers_of_game){
                 }
 
             }else{
+                echo('----Wild_beast start attack---- <br />');
                 echo('Hero is lucky no dmg <br />');
             }
-            
+
             $strike_first = CharacterType::$BEAST;
         }
     }
