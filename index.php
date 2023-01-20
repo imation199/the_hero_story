@@ -15,8 +15,8 @@ function start_game($numbers_of_game){
     $hero->print_stats();
     $wild_beast->print_stats();
 
-    $hero_luck = $hero->luck_in_game();
-    $wild_beast_luck = $wild_beast->luck_in_game();
+    $hero_luck = $hero->luck();
+    $wild_beast_luck = $wild_beast->luck();
 
     $strike_first = '';
 
@@ -77,8 +77,8 @@ function start_game($numbers_of_game){
    
     for($i = 1; $i<=$numbers_of_game ; $i++){
 
-        $hero_luck = $hero->luck_in_game();
-        $wild_beast_luck = $wild_beast->luck_in_game();
+        $hero_luck = $hero->luck();
+        $wild_beast_luck = $wild_beast->luck();
 
         echo('------------New Round Number:'.$i.' ------ <br />');
 

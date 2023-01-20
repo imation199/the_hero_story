@@ -76,7 +76,7 @@ class Character
         return $this->magic_shield;
     }
 
-    public function luck_in_game(){
+    public function luck(){
         return (round(mt_rand(1, (1 / $this->getLuck()) * 100)) == 1);
     }
 
