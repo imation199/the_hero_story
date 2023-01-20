@@ -24,15 +24,15 @@ function start_game($numbers_of_game){
 
     if($hero->getSpeed() > $wild_beast->getSpeed()){
         $strike_first = CharacterType::$HERO;
-        $hero->strike();
         if(!$wild_beast_luck){
-            $damage = $hero->damage_deal($hero->getStrenght(), $wild_beast->getDefence());
-            if($hero->hero_get_skill(HeroSkills::$RAPID_STRIKE)){
-                echo('Rapid Strike <br />');
-                $damage = $damage * 2 ; 
-            }
-            echo ('Damage Deal:'. $damage ."<br />" );
-            $wild_beast->setHealth($wild_beast->getHealth() - $damage);
+            $hero->strike($wild_beast,$hero->getStrenght(), $wild_beast->getDefence());
+            // $damage = $hero->damage_deal($hero->getStrenght(), $wild_beast->getDefence());
+            // if($hero->hero_get_skill(HeroSkills::$RAPID_STRIKE)){
+            //     echo('Rapid Strike <br />');
+            //     $damage = $damage * 2 ; 
+            // }
+            // echo ('Damage Deal:'. $damage ."<br />" );
+            // $wild_beast->setHealth($wild_beast->getHealth() - $damage);
             $hero->print_stats();
             $wild_beast->print_stats();
         }else{
@@ -40,15 +40,16 @@ function start_game($numbers_of_game){
         }
     }elseif($hero->getSpeed() < $wild_beast->getSpeed()){
         $strike_first = CharacterType::$BEAST;
-        $wild_beast->strike();
+        
         if(!$hero_luck){
-            $damage = $hero->damage_deal($wild_beast->getStrenght(), $hero->getDefence());
-            if($hero->hero_get_skill(HeroSkills::$SHIELD)){
-                echo('Magic Sheald <br />');
-                $damage = 0 ; 
-            }
-            echo ('Damage Deal:'. $damage ."<br />" );
-            $hero->setHealth($hero->getHealth() - $damage);
+            $wild_beast->strike($hero,$wild_beast->getStrenght(),$hero->getDefence());
+            // $damage = $hero->damage_deal($wild_beast->getStrenght(), $hero->getDefence());
+            // if($hero->hero_get_skill(HeroSkills::$SHIELD)){
+            //     echo('Magic Sheald <br />');
+            //     $damage = 0 ; 
+            // }
+            // echo ('Damage Deal:'. $damage ."<br />" );
+            // $hero->setHealth($hero->getHealth() - $damage);
             $hero->print_stats();
             $wild_beast->print_stats();
         }else{
@@ -57,32 +58,31 @@ function start_game($numbers_of_game){
     }else{
         if($hero->getLuck() > $wild_beast->getLuck()){
             $strike_first = CharacterType::$HERO;
-            $hero->strike();
             if(!$wild_beast_luck){
-                $damage = $hero->damage_deal($hero->getStrenght(), $wild_beast->getDefence());
-                if($hero->hero_get_skill(HeroSkills::$RAPID_STRIKE)){
-                    echo('Rapid Strike <br />');
-                    $damage = $damage * 2 ; 
-                }
-                echo ('Damage Deal:'. $damage ."<br />" );
-                $wild_beast->setHealth($wild_beast->getHealth() - $damage);
+                $hero->strike($wild_beast,$hero->getStrenght(), $wild_beast->getDefence());
+                // $damage = $hero->damage_deal($hero->getStrenght(), $wild_beast->getDefence());
+                // if($hero->hero_get_skill(HeroSkills::$RAPID_STRIKE)){
+                //     echo('Rapid Strike <br />');
+                //     $damage = $damage * 2 ; 
+                // }
+                // echo ('Damage Deal:'. $damage ."<br />" );
+                // $wild_beast->setHealth($wild_beast->getHealth() - $damage);
                 $hero->print_stats();
                 $wild_beast->print_stats();
-                exit;
             }else{
                 echo ('Wild_beast is lucky no dmg <br />');
             }
         }elseif($hero->getLuck() < $wild_beast->getLuck()){
             $strike_first = CharacterType::$BEAST;
-            $wild_beast->strike();
             if(!$hero_luck){
-                $damage = $hero->damage_deal($wild_beast->getStrenght(), $hero->getDefence());
-                if($hero->hero_get_skill(HeroSkills::$SHIELD)){
-                    echo('Magic Sheald <br />');
-                    $damage = 0 ; 
-                }
-                echo ('Damage Deal:'. $damage ."<br />" );
-                $hero->setHealth($hero->getHealth() - $damage);
+                $wild_beast->strike($hero,$wild_beast->getStrenght(),$hero->getDefence());
+                // $damage = $hero->damage_deal($wild_beast->getStrenght(), $hero->getDefence());
+                // if($hero->hero_get_skill(HeroSkills::$SHIELD)){
+                //     echo('Magic Sheald <br />');
+                //     $damage = 0 ; 
+                // }
+                // echo ('Damage Deal:'. $damage ."<br />" );
+                // $hero->setHealth($hero->getHealth() - $damage);
                 $hero->print_stats();
                 $wild_beast->print_stats();
             }else{

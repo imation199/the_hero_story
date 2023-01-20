@@ -80,26 +80,51 @@ class Character
 
     public function hero_get_skill($special_skill){
         switch($special_skill){
-            case $this->rapid_strike:
+            case HeroSkills::$RAPID_STRIKE:
                 return (round(mt_rand(1, (1 / self::$rapid_strike_chance) * 100)) == 1);
             break;
-            case $this->magic_shield:
+            case HeroSkills::$SHIELD:
                 return (round(mt_rand(1, (1 / self::$magic_shield_chance) * 100)) == 1);
             break;
         }
     }
 
     public function damage_deal($power = null, $defense = null){
-            return $power - $defense;
+        $dmg = $power - $defense;
+        switch($this->type_character){
+            case CharacterType::$HERO:
+                $get_rapid_strike = $this->hero_get_skill($this->rapid_strike);
+                if($get_rapid_strike){
+                    echo('Rapid Strike <br />');
+                    $dmg += $dmg;
+                }
+                return  $dmg;
+                break;
+            case CharacterType::$BEAST:
+                $get_shield = $this->hero_get_skill(HeroSkills::$SHIELD);
+                if($get_shield){
+                    echo('Magic Sheald <br />');
+                    $dmg = 0;
+                }
+                return  $dmg;
+                break;
+        }
+            return false ;
     }
 
-    public function strike(){
+    public function strike($defender,$strenght,$defence){
         switch($this->type_character){
             case CharacterType::$HERO:
                 echo('----Hero start attack---- <br />');
+                $damage = $this->damage_deal($strenght,$defence);
+                echo ('Damage Deal:'. $damage ."<br />" );
+                $defender->setHealth($this->health - $damage);
                 break;
             case CharacterType::$BEAST:
                 echo('----Beast start attack---- <br />');
+                $damage =  $this->damage_deal($strenght,$defence);
+                echo ('Damage Deal:'. $damage ."<br />" );
+                $defender->setHealth($this->health - $damage);
                 break;
         }
     }
