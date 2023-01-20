@@ -1,8 +1,6 @@
 <?php
 
-include_once('classes\GameCharacterSkills.php');
-// include_once('classes\Hero.php');
-// include_once('classes\Beast.php');
+include_once('classes\Character.php');
 include_once('classes\CharacterType.php');
 include_once('classes\HeroSkills.php');
 
@@ -24,112 +22,85 @@ function start_game($numbers_of_game){
 
     if($hero->getSpeed() > $wild_beast->getSpeed()){
         $strike_first = CharacterType::$HERO;
+
         if(!$wild_beast_luck){
-            $hero->strike($wild_beast,$hero->getStrenght(), $wild_beast->getDefence());
-            // $damage = $hero->damage_deal($hero->getStrenght(), $wild_beast->getDefence());
-            // if($hero->hero_get_skill(HeroSkills::$RAPID_STRIKE)){
-            //     echo('Rapid Strike <br />');
-            //     $damage = $damage * 2 ; 
-            // }
-            // echo ('Damage Deal:'. $damage ."<br />" );
-            // $wild_beast->setHealth($wild_beast->getHealth() - $damage);
+            $hero->strike($wild_beast);
             $hero->print_stats();
             $wild_beast->print_stats();
         }else{
             echo ('Wild_beast is lucky no dmg <br />');
         }
+
     }elseif($hero->getSpeed() < $wild_beast->getSpeed()){
         $strike_first = CharacterType::$BEAST;
-        
+
         if(!$hero_luck){
-            $wild_beast->strike($hero,$wild_beast->getStrenght(),$hero->getDefence());
-            // $damage = $hero->damage_deal($wild_beast->getStrenght(), $hero->getDefence());
-            // if($hero->hero_get_skill(HeroSkills::$SHIELD)){
-            //     echo('Magic Sheald <br />');
-            //     $damage = 0 ; 
-            // }
-            // echo ('Damage Deal:'. $damage ."<br />" );
-            // $hero->setHealth($hero->getHealth() - $damage);
+            $wild_beast->strike($hero);
             $hero->print_stats();
             $wild_beast->print_stats();
         }else{
             echo('Hero is lucky no dmg <br />');
         }
+
     }else{
         if($hero->getLuck() > $wild_beast->getLuck()){
             $strike_first = CharacterType::$HERO;
+
             if(!$wild_beast_luck){
-                $hero->strike($wild_beast,$hero->getStrenght(), $wild_beast->getDefence());
-                // $damage = $hero->damage_deal($hero->getStrenght(), $wild_beast->getDefence());
-                // if($hero->hero_get_skill(HeroSkills::$RAPID_STRIKE)){
-                //     echo('Rapid Strike <br />');
-                //     $damage = $damage * 2 ; 
-                // }
-                // echo ('Damage Deal:'. $damage ."<br />" );
-                // $wild_beast->setHealth($wild_beast->getHealth() - $damage);
+                $hero->strike($wild_beast);
                 $hero->print_stats();
                 $wild_beast->print_stats();
             }else{
                 echo ('Wild_beast is lucky no dmg <br />');
             }
+
         }elseif($hero->getLuck() < $wild_beast->getLuck()){
             $strike_first = CharacterType::$BEAST;
+
             if(!$hero_luck){
-                $wild_beast->strike($hero,$wild_beast->getStrenght(),$hero->getDefence());
-                // $damage = $hero->damage_deal($wild_beast->getStrenght(), $hero->getDefence());
-                // if($hero->hero_get_skill(HeroSkills::$SHIELD)){
-                //     echo('Magic Sheald <br />');
-                //     $damage = 0 ; 
-                // }
-                // echo ('Damage Deal:'. $damage ."<br />" );
-                // $hero->setHealth($hero->getHealth() - $damage);
+                $wild_beast->strike($hero);
                 $hero->print_stats();
                 $wild_beast->print_stats();
             }else{
                 echo('Hero is lucky no dmg <br />');
             }
+
         }else{
             echo('Speed and luck are even game can`t start. Please try again !<br />');
         }
     }
 
    
-    for($i = 0; $i<=$numbers_of_game ; $i++){
+    for($i = 1; $i<=$numbers_of_game ; $i++){
 
         $hero_luck = $hero->luck_in_game();
         $wild_beast_luck = $wild_beast->luck_in_game();
 
-        echo('------------ new round------ <br />');
+        echo('------------New Round Number:'.$i.' ------ <br />');
+
         if($strike_first == CharacterType::$BEAST){
-            $hero->strike();
+            $strike_first = CharacterType::$HERO;
+
             if(!$wild_beast_luck){
-                $damage = $hero->damage_deal($hero->getStrenght(), $wild_beast->getDefence());
-                if($hero->hero_get_skill(HeroSkills::$RAPID_STRIKE)){
-                    echo('Rapid Strike <br />');
-                    $damage = $damage * 2 ; 
-                }
-                echo ('Damage Deal:'. $damage ."<br />" );
-                $wild_beast->setHealth($wild_beast->getHealth() - $damage);
+                $hero->strike($wild_beast);
                 $hero->print_stats();
                 $wild_beast->print_stats();
+
                 if($wild_beast->getHealth() <= 0){
                     echo('Hero Win ! <br />');exit;
                 }
+
             }else{
                 echo ('Wild_beast is lucky no dmg <br />');
             }
+
             $strike_first = CharacterType::$HERO;
 
         }elseif($strike_first = CharacterType::$HERO){
-            $wild_beast->strike();
+            $strike_first = CharacterType::$BEAST;
+
             if(!$hero_luck){
-                $damage = $hero->damage_deal($wild_beast->getStrenght(), $hero->getDefence());
-                if($hero->hero_get_skill(HeroSkills::$SHIELD)){
-                    echo('Magic Sheald <br />');
-                    $damage = 0 ; 
-                }
-                echo ('Damage Deal:'. $damage ."<br />" );
-                $hero->setHealth($hero->getHealth() - $damage);
+                $wild_beast->strike($hero);
                 $hero->print_stats();
                 $wild_beast->print_stats();
 
@@ -140,6 +111,7 @@ function start_game($numbers_of_game){
             }else{
                 echo('Hero is lucky no dmg <br />');
             }
+            
             $strike_first = CharacterType::$BEAST;
         }
     }
